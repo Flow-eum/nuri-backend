@@ -1,4 +1,4 @@
-package flow.nuri;
+package flow.nuri.common;
 
 import org.springframework.boot.security.autoconfigure.web.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
