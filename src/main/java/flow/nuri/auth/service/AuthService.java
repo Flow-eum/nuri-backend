@@ -1,6 +1,6 @@
 package flow.nuri.auth.service;
 
-import flow.nuri.JwtProvider;
+import flow.nuri.common.security.JwtProvider;
 import flow.nuri.auth.domain.User;
 import flow.nuri.auth.domain.UserRoleEnum;
 import flow.nuri.auth.dto.LoginReq;
