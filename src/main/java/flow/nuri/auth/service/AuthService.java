@@ -44,12 +44,11 @@ public class AuthService {
         // 사용자 등록
         User user = User.builder()
                 .username(username)
-                .password(password)
+                .password(passwordEncoder.encode(password)) // 보안을 위한 encoding
                 .role(role)
                 .build();
 
         userRepository.save(user);
-
     }
 
     @Transactional
