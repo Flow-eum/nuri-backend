@@ -97,7 +97,7 @@ public class JwtFilter extends OncePerRequestFilter {
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 log.info("쿠키 이름: {}, 쿠키 값: {}", cookie.getName(), cookie.getValue());
-                if (cookie.getName().equals("")) {
+                if (cookie.getName().equals("Authorization")) {
                     String cookieValue = cookie.getValue();
                     if (cookieValue != null) {
                         log.info("디코딩된 토큰: {}", cookieValue);
@@ -108,7 +108,10 @@ public class JwtFilter extends OncePerRequestFilter {
                 }
             }
         }
+        log.info("Authorization 쿠키가 요청에 포함되지 않았습니다.");
+        return null;
     }
+
 
     public Claims getUserInfoFromToken(String token, SecretKey key) {
         return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();

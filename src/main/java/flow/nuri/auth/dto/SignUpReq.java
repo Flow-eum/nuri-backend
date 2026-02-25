@@ -1,11 +1,12 @@
 package flow.nuri.auth.dto;
 
 import flow.nuri.auth.domain.UserRoleEnum;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class SignUpReq {
 
     private String username;
