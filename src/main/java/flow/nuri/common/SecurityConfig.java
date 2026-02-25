@@ -33,7 +33,13 @@ public class SecurityConfig {
                 authorizeHttpRequests
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         // api 요청 허가
+                        .requestMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html"
+                        ).permitAll()
                         .requestMatchers("/api/v1/auth/**").permitAll() // 회원가입 로그인은 필터 통과
+                        .requestMatchers(PathRequest.toH2Console()).permitAll()
                         .anyRequest().authenticated() // 그 외 모든 요청 인증처리
         );
 
