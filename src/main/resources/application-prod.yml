@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${PROD_DB_HOST}:${PROD_DB_PORT:5432}/${PROD_DB_NAME}
+    username: ${PROD_DB_USER}
+    password: ${PROD_DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate # 운영에서는 DB 스키마를 직접 바꾸지 못하게 방어
+    show-sql: false # 운영 로그에 쿼리가 찍히면 성능 저하 및 보안 위험
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  level:
+    root: info
+    flow.nuri: info
+    org.hibernate.sql: info
+    org.hibernate.orm.jdbc.bind: info
+
+jwt:
+  secret:
+    key: ${JWT_SECRET_KEY}
