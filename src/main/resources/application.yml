@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: nuri
+  profiles:
+    active: local
+    group:
+      "local": "local"
+      "prod": "prod"
+
+  threads:
+    virtual:
+      enabled: true
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    disable-swagger-default-url: true
+
