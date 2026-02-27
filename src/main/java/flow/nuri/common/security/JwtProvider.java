@@ -23,7 +23,9 @@ public class JwtProvider {
     public static final String AUTHORIZATION_KEY = "auth";
     public static final String BEARER_PREFIX = "Bearer";
 
-    private final long TOKEN_TIME = 60 * 60 * 1000L;
+    @Value("${jwt.expiration-time}")
+    private long expirationTime;
+
     private final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
     @Value("${jwt.secret.key}")
@@ -49,7 +51,7 @@ public class JwtProvider {
                         .setSubject(username)
                         .claim(AUTHORIZATION_KEY, role)
                         .setIssuedAt(date)
-                        .setExpiration(new Date(date.getTime() + TOKEN_TIME))
+                        .setExpiration(new Date(date.getTime() + expirationTime))
                         .signWith(key, signatureAlgorithm)
                         .compact();
 
