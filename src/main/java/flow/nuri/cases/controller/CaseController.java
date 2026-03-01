@@ -1,6 +1,7 @@
 package flow.nuri.cases.controller;
 
 import flow.nuri.cases.dto.request.CasesRequest;
+import flow.nuri.cases.dto.response.CasesDetailResponse;
 import flow.nuri.cases.dto.response.CasesListResponse;
 import flow.nuri.cases.service.CaseService;
 import lombok.RequiredArgsConstructor;
@@ -29,5 +30,14 @@ public class CaseController {
     public ResponseEntity<?> getAllCases() {
         List<CasesListResponse> responses = caseService.getAllCases();
         return ResponseEntity.ok(responses);
+    }
+
+    /**
+     * 등록된 case 단일 조회
+     */
+    @GetMapping("/{caseId}")
+    public ResponseEntity<?> getCase(@PathVariable("id") Long caseId) {
+        CasesDetailResponse response = caseService.getCaseById(caseId);
+        return ResponseEntity.ok(response);
     }
 }

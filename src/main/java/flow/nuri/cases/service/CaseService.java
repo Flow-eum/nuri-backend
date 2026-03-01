@@ -2,6 +2,7 @@ package flow.nuri.cases.service;
 
 import flow.nuri.cases.domain.Cases;
 import flow.nuri.cases.dto.request.CasesRequest;
+import flow.nuri.cases.dto.response.CasesDetailResponse;
 import flow.nuri.cases.dto.response.CasesListResponse;
 import flow.nuri.cases.repository.CaseRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,5 +29,13 @@ public class CaseService {
         return caseRepository.findAll().stream()
                 .map(CasesListResponse::from)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public CasesDetailResponse getCaseById(Long id) {
+        Cases cases = caseRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 사례를 찾을 수 없습니다" + id));
+
+        return CasesDetailResponse.from(cases);
     }
 }
