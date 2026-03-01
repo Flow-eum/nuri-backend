@@ -36,7 +36,7 @@ public class CaseController {
      * 등록된 case 단일 조회
      */
     @GetMapping("/{caseId}")
-    public ResponseEntity<?> getCase(@PathVariable("id") Long caseId) {
+    public ResponseEntity<?> getCase(@PathVariable("caseId") Long caseId) {
         CasesDetailResponse response = caseService.getCaseById(caseId);
         return ResponseEntity.ok(response);
     }
