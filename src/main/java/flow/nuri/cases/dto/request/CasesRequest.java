@@ -1,4 +1,4 @@
-package flow.nuri.cases.dto;
+package flow.nuri.cases.dto.request;
 
 import flow.nuri.cases.domain.*;
 import jakarta.validation.constraints.NotBlank;
@@ -14,7 +14,7 @@ import java.util.List;
 
 @Getter @Setter
 @Builder
-public class CasesCreateRequest {
+public class CasesRequest {
     @NotBlank(message = "이름은 필수입니다.")
     private String name;
 
