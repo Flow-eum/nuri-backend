@@ -31,6 +31,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation(platform("me.paulschwarz:spring-dotenv-bom:5.1.0"))
     developmentOnly("me.paulschwarz:springboot4-dotenv")
 	compileOnly 'org.projectlombok:lombok'
