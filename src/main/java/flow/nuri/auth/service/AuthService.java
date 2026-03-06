@@ -61,6 +61,6 @@ public class AuthService {
         // JWT 생성 및 쿠키에 저장한 후 Response 객체에 추가
         String token = jwtProvider.createToken(user.getUsername(), user.getRole());
         jwtProvider.addJwtToCookie(token, res);
-        return token;
+        return user.getUsername();
     }
 }
