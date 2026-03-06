@@ -1,10 +1,10 @@
 package flow.nuri.auth.service;
 
+import flow.nuri.auth.dto.request.LoginRequest;
+import flow.nuri.auth.dto.request.SignUpRequest;
 import flow.nuri.common.security.JwtProvider;
 import flow.nuri.auth.domain.User;
 import flow.nuri.auth.domain.UserRoleEnum;
-import flow.nuri.auth.dto.LoginReq;
-import flow.nuri.auth.dto.SignUpReq;
 import flow.nuri.auth.repository.UserRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -24,50 +24,43 @@ public class AuthService {
     private final JwtProvider jwtProvider;
 
     @Transactional
-    public void signUp(SignUpReq req) {
-        String username = req.getUsername();
-        String password = req.getPassword();
-        UserRoleEnum role = req.getRole();
+    public void signUp(SignUpRequest req) {
 
-        // 회원 중복 확인
-        Optional<User> checkUsername = userRepository.findByUsername(username);
+        Optional<User> checkUsername = userRepository.findByUsername(req.username());
+        UserRoleEnum role = (req.role() == null) ? UserRoleEnum.USER : req.role();
+
         if (checkUsername.isPresent()) {
             throw new IllegalArgumentException("중복된 사용자가 존재합니다.");
         }
 
-        if (role == null) {
-            role = UserRoleEnum.USER;
-        } else if(role == UserRoleEnum.ADMIN) {
-            throw new IllegalArgumentException("유효한 관리자 토큰이 필요합니다.");
+        if (role == UserRoleEnum.ADMIN) {
+            if (!ADMIN_TOKEN.equals(req.adminToken())) {
+                throw new IllegalArgumentException("관리자 암호가 틀려 가입이 불가능합니다.");
+            }
         }
 
-        // 사용자 등록
-        User user = User.builder()
-                .username(username)
-                .password(passwordEncoder.encode(password)) // 보안을 위한 encoding
-                .role(role)
-                .build();
+        String encodedPassword = passwordEncoder.encode(req.password());
+        User user = req.toEntity(encodedPassword);
 
         userRepository.save(user);
     }
 
     @Transactional
-    public void login(LoginReq req, HttpServletResponse res) {
-        String username = req.getUsername();
-        String password = req.getPassword();
+    public String login(LoginRequest req, HttpServletResponse res) {
 
         // 사용자 확인
-        User user = userRepository.findByUsername(username).orElseThrow(
+        User user = userRepository.findByUsername(req.username()).orElseThrow(
                 () -> new IllegalArgumentException("등록된 사용자가 없습니다.")
         );
 
         // 비밀번호 확인
-        if (!passwordEncoder.matches(password, user.getPassword())) {
+        if (!passwordEncoder.matches(req.password(), user.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
         // JWT 생성 및 쿠키에 저장한 후 Response 객체에 추가
         String token = jwtProvider.createToken(user.getUsername(), user.getRole());
         jwtProvider.addJwtToCookie(token, res);
+        return user.getUsername();
     }
 }
