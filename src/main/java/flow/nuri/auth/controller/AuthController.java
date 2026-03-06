@@ -1,6 +1,6 @@
 package flow.nuri.auth.controller;
 
-import flow.nuri.auth.dto.request.LoginReq;
+import flow.nuri.auth.dto.request.LoginRequest;
 import flow.nuri.auth.dto.request.SignUpRequest;
 import flow.nuri.auth.service.AuthService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,7 +25,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginReq req, HttpServletResponse res) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest req, HttpServletResponse res) {
         authService.login(req, res);
         return ResponseEntity.ok().build();
     }

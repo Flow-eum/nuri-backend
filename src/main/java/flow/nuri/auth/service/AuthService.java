@@ -1,10 +1,10 @@
 package flow.nuri.auth.service;
 
+import flow.nuri.auth.dto.request.LoginRequest;
 import flow.nuri.auth.dto.request.SignUpRequest;
 import flow.nuri.common.security.JwtProvider;
 import flow.nuri.auth.domain.User;
 import flow.nuri.auth.domain.UserRoleEnum;
-import flow.nuri.auth.dto.request.LoginReq;
 import flow.nuri.auth.repository.UserRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -46,22 +46,21 @@ public class AuthService {
     }
 
     @Transactional
-    public void login(LoginReq req, HttpServletResponse res) {
-        String username = req.getUsername();
-        String password = req.getPassword();
+    public String login(LoginRequest req, HttpServletResponse res) {
 
         // 사용자 확인
-        User user = userRepository.findByUsername(username).orElseThrow(
+        User user = userRepository.findByUsername(req.username()).orElseThrow(
                 () -> new IllegalArgumentException("등록된 사용자가 없습니다.")
         );
 
         // 비밀번호 확인
-        if (!passwordEncoder.matches(password, user.getPassword())) {
+        if (!passwordEncoder.matches(req.password(), user.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
         // JWT 생성 및 쿠키에 저장한 후 Response 객체에 추가
         String token = jwtProvider.createToken(user.getUsername(), user.getRole());
         jwtProvider.addJwtToCookie(token, res);
+        return token;
     }
 }
