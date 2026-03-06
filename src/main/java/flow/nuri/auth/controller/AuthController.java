@@ -1,7 +1,7 @@
 package flow.nuri.auth.controller;
 
-import flow.nuri.auth.dto.LoginReq;
-import flow.nuri.auth.dto.SignUpReq;
+import flow.nuri.auth.dto.request.LoginReq;
+import flow.nuri.auth.dto.request.SignUpRequest;
 import flow.nuri.auth.service.AuthService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/sign-up")
-    public ResponseEntity<?> signup(@RequestBody SignUpReq req) {
+    public ResponseEntity<?> signup(@RequestBody SignUpRequest req) {
         authService.signUp(req);
         return ResponseEntity.ok().build();
     }
