@@ -1,6 +1,6 @@
 package flow.nuri.auth.controller;
 
-import flow.nuri.auth.dto.response.GetUserInfoResponse;
+import flow.nuri.auth.dto.GetUserInfoRes;
 import flow.nuri.auth.security.UserDetailsImpl;
 import flow.nuri.auth.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +20,8 @@ public class UserController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/info/me")
-    public ResponseEntity<GetUserInfoResponse> getMyInfo(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-        GetUserInfoResponse myInfo = userService.getMyInfo(userDetails);
+    public ResponseEntity<GetUserInfoRes> getMyInfo(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        GetUserInfoRes myInfo = userService.getMyInfo(userDetails);
         return ResponseEntity.ok(myInfo); // 현재 인증된 사용자 정보 반환
     }
 }
