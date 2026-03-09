@@ -35,6 +35,9 @@ public class Supervision {
     private LocalDateTime acceptedAt;
 
     public void accept() {
+        if (this.status == SupervisionStatus.ACCEPTED) {
+            throw new IllegalArgumentException("이미 수락된 요청입니다.");
+        }
         this.status = SupervisionStatus.ACCEPTED;
         this.acceptedAt = LocalDateTime.now();
     }
