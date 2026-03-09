@@ -19,4 +19,9 @@ public class SupervisionController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/accept")
+    public ResponseEntity<?> acceptSupervision(@PathVariable("supervisionId") Long supervisionId) {
+        supervisionService.acceptSupervision(supervisionId);
+        return ResponseEntity.ok().build();
+    }
 }
