@@ -118,7 +118,11 @@ public class JwtFilter extends OncePerRequestFilter {
     }
 
     private boolean isAuthorizationPassRequest(String path) {
-        return path.startsWith("/api/v1/auth/login") || path.startsWith("/api/v1/auth/sign-up");
+        return path.startsWith("/api/v1/auth/login")
+                || path.startsWith("/api/v1/auth/sign-up")
+                || path.startsWith("/swagger-ui")
+                || path.startsWith("/v3/api-docs")
+                || path.startsWith("favicon.ico");
     }
 
     private SecretKey getSecretKey() {
