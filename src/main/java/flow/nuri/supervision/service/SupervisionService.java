@@ -6,12 +6,17 @@ import flow.nuri.common.auth.SecurityProvider;
 import flow.nuri.supervision.domain.Supervision;
 import flow.nuri.supervision.domain.SupervisionStatus;
 import flow.nuri.supervision.dto.request.SupervisionRequest;
+import flow.nuri.supervision.dto.response.SupervisionDetailResponse;
+import flow.nuri.supervision.dto.response.SupervisionListResponse;
 import flow.nuri.supervision.repository.SupervisionRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -51,6 +56,21 @@ public class SupervisionService {
         }
 
         supervision.accept();
+    }
+
+    @Transactional(readOnly = true)
+    public List<SupervisionListResponse> getAllSupervision() {
+        return supervisionRepository.findAll().stream()
+                .map(SupervisionListResponse::from)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public SupervisionDetailResponse getSupervisionById(Long supervisionId) {
+        Supervision supervision = supervisionRepository.findById(supervisionId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 슈퍼비전 요청을 찾을 수 없습니다."));
+
+        return SupervisionDetailResponse.from(supervision);
     }
 
 
