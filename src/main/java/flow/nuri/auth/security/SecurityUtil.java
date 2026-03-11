@@ -1,14 +1,18 @@
 package flow.nuri.auth.security;
 
 
+import flow.nuri.common.auth.SecurityProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 
-public class SecurityUtil {
+@Component
+public class SecurityUtil implements SecurityProvider {
 
     private SecurityUtil() {}
 
-    public static String getCurrentUser() {
+    @Override
+    public String getCurrentUsername() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null || authentication.getName() == null) {
