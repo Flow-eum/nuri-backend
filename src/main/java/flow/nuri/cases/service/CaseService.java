@@ -13,20 +13,21 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class CaseService {
 
     private final CaseRepository caseRepository;
 
-    public Long createCases(CasesRequest request) {
+    public void createCases(CasesRequest request) {
         Cases cases = request.toEntity();
-
-        return caseRepository.save(cases).getId();
+        caseRepository.save(cases);
     }
 
     @Transactional(readOnly = true)
     public List<CasesListResponse> getAllCases() {
-        return caseRepository.findAll().stream()
+        List<Cases> allCases = caseRepository.findAll();
+        return allCases.stream()
                 .map(CasesListResponse::from)
                 .collect(Collectors.toList());
     }

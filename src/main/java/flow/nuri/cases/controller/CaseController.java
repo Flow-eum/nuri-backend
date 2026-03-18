@@ -23,20 +23,14 @@ public class CaseController {
         return ResponseEntity.ok().build();
     }
 
-    /**
-     * 등록된 case 전체 조회
-     */
     @GetMapping
     public ResponseEntity<?> getAllCases() {
         List<CasesListResponse> responses = caseService.getAllCases();
         return ResponseEntity.ok(responses);
     }
 
-    /**
-     * 등록된 case 단일 조회
-     */
     @GetMapping("/{caseId}")
-    public ResponseEntity<?> getCase(@PathVariable("caseId") Long caseId) {
+    public ResponseEntity<?> getCaseById(@PathVariable("caseId") Long caseId) {
         CasesDetailResponse response = caseService.getCaseById(caseId);
         return ResponseEntity.ok(response);
     }
