@@ -1,4 +1,4 @@
-package flow.nuri.cases.domain;
+package flow.nuri.cases.domain.cases;
 
 public enum AssessmentType {
     INITIAL("신규"),

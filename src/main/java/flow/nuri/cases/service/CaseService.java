@@ -1,6 +1,6 @@
 package flow.nuri.cases.service;
 
-import flow.nuri.cases.domain.Cases;
+import flow.nuri.cases.domain.cases.Cases;
 import flow.nuri.cases.dto.request.CasesRequest;
 import flow.nuri.cases.dto.response.CasesDetailResponse;
 import flow.nuri.cases.dto.response.CasesListResponse;

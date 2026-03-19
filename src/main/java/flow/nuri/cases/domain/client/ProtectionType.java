@@ -1,4 +1,4 @@
-package flow.nuri.cases.domain;
+package flow.nuri.cases.domain.client;
 
 public enum ProtectionType {
     CUSTOMIZED_BENEFITS("맞춤형급여(생계/의료/주거/교육)"),

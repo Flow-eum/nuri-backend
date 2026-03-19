@@ -1,4 +1,4 @@
-package flow.nuri.cases.domain;
+package flow.nuri.cases.domain.client;
 
 public enum HouseholdType {
     SINGLE("1인가구"),
