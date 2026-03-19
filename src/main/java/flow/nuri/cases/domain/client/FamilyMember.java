@@ -1,6 +1,7 @@
-package flow.nuri.cases.domain;
+package flow.nuri.cases.domain.client;
 
 
+import flow.nuri.cases.domain.cases.Cases;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

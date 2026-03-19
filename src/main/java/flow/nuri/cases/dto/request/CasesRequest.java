@@ -1,6 +1,12 @@
 package flow.nuri.cases.dto.request;
 
-import flow.nuri.cases.domain.*;
+import flow.nuri.cases.domain.cases.AssessmentType;
+import flow.nuri.cases.domain.cases.Cases;
+import flow.nuri.cases.domain.cases.MeetingLog;
+import flow.nuri.cases.domain.client.vo.EmergencyContact;
+import flow.nuri.cases.domain.client.FamilyMember;
+import flow.nuri.cases.domain.client.HouseholdType;
+import flow.nuri.cases.domain.client.ProtectionType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;

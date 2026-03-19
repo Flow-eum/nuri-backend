@@ -1,7 +1,7 @@
 package flow.nuri.cases.dto.response;
 
-import flow.nuri.cases.domain.AssessmentType;
-import flow.nuri.cases.domain.Cases;
+import flow.nuri.cases.domain.cases.AssessmentType;
+import flow.nuri.cases.domain.cases.Cases;
 
 import java.time.LocalDate;
 

@@ -1,4 +1,4 @@
-package flow.nuri.cases.domain;
+package flow.nuri.cases.domain.client.vo;
 
 import jakarta.persistence.Embeddable;
 
